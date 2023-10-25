@@ -1,5 +1,5 @@
-TAG ?= $(shell git describe --tags --always --dirty)
-REGISTRY ?= kubeflownotebookswg
+TAG ?= v1.0
+REGISTRY ?= tmsimageswg
 
 
 .PHONY: docker-build
@@ -49,49 +49,6 @@ build-rstudio-tidyverse:
 
 .PHONY: docker-push
 docker-push:
-	@echo "\nPushing base image...\n"
-	$(MAKE) docker-push -C base
 
-	@echo "\nPushing codeserver image...\n"
-	$(MAKE) docker-push -C codeserver
-
-	@echo "\nPushing codeserver-python image...\n"
-	$(MAKE) docker-push -C codeserver-python 
-
-	@echo "\nPushing rstudio image...\n"
-	$(MAKE) docker-push -C rstudio
-
-	@echo "\nPushing rstudio-tidyverse image...\n"
-	$(MAKE) docker-push -C rstudio-tidyverse
-
-	@echo "\nPushing jupyter image...\n"
-	$(MAKE) docker-push -C jupyter
-
-	@echo "\nPushing jupyter-scipy image...\n"
-	$(MAKE) docker-push -C jupyter-scipy
-
-	@echo "\nPushing jupyter-pytorch image...\n"
-	$(MAKE) docker-push-cpu -C jupyter-pytorch
-
-	@echo "\nPushing jupyter-pytorch-cuda image...\n"
-	$(MAKE) docker-push-cuda -C jupyter-pytorch
-
-	@echo "\nPushing jupyter-pytorch-full image...\n"
-	$(MAKE) docker-push-cpu -C jupyter-pytorch-full
-
-	@echo "\nPushing jupyter-pytorch-cuda-full image...\n"
-	$(MAKE) docker-push-cuda -C jupyter-pytorch-full
-
-	@echo "\nPushing jupyter-tensorflow image...\n"
-	$(MAKE) docker-push-cpu -C jupyter-tensorflow
-
-	@echo "\nPushing jupyter-tensorflow-cuda image...\n"
-	$(MAKE) docker-push-cuda -C jupyter-tensorflow
-
-	@echo "\nPushing jupyter-tensorflow-full image...\n"
-	$(MAKE) docker-push-cpu -C jupyter-tensorflow-full
-
-	@echo "\nPushing jupyter-tensorflow-cuda-full image...\n"
-	$(MAKE) docker-push-cuda -C jupyter-tensorflow-full
 
 	@echo "\nAll notebook-server images have been successfully pushed...\n"

@@ -1,5 +1,5 @@
-TAG ?= $(shell git describe --tags --always --dirty)
-REGISTRY ?= kubeflownotebookswg
+TAG ?= v1.0
+REGISTRY ?= tmsimageswg
 
 docker-build-jupyter:
 	$(MAKE) docker-build -C ../jupyter TAG=${TAG}

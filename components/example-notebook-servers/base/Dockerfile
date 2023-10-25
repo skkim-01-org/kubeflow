@@ -39,6 +39,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     vim \
     wget \
     zip \
+    sudo \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -66,11 +67,17 @@ RUN useradd -M -s /bin/bash -N -u ${NB_UID} ${NB_USER} \
  && chown -R ${NB_USER}:users /usr/local/bin \
  && chown -R ${NB_USER}:users /etc/s6
 
+# give sudoers
+RUN chmod +w /etc/sudoers \
+ && echo 'jovyan ALL=(ALL) NOPASSWD:ALL' | tee -a /etc/sudoers \
+ && chmod -w /etc/sudoers
+
 # set locale configs
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
  && locale-gen
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+ENV JUPYTER_ALLOW_INSECURE_WRITES=true
 
 USER $NB_UID
